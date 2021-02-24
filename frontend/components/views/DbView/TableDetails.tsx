@@ -30,6 +30,7 @@ interface TableDetailsProps {
 const TableDetails = ({ table }: TableDetailsProps) => (
   <>
     <Typography variant="h3">{`${table?.table_name}`}</Typography>
+    <br />
     <TableContainer component={StyledPaper}>
       <Table>
         <TableHead>
@@ -49,7 +50,13 @@ const TableDetails = ({ table }: TableDetailsProps) => (
           {table?.columns.map((row) => (
             <TableRow key={row.column_name}>
               <StyledCell key={row?.column_name}>{row?.column_name}</StyledCell>
-              <StyledCell align="right">{row?.data_type}</StyledCell>
+              <StyledCell align="right">
+                {`${row?.data_type}${
+                  row?.character_maximum_length
+                    ? `(${row.character_maximum_length})`
+                    : ''
+                }`}
+              </StyledCell>
               <StyledCell align="right">{row?.is_nullable}</StyledCell>
             </TableRow>
           ))}
